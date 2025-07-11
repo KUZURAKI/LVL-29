@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="../static/styles/index.css" />
+  </head>
+  <body>
+    <header>
+      <div class="containerNav">
+        <div class="containerLogo">
+          <img
+            src="{{ url_for('static', filename='img/eye.png') }}"
+            alt="Toggle"
+          />
+        </div>
+        <div class="containerButton">
+          <button class="openModalBtn">Кнопочка</button>
+          <hr class="upHr" />
+          <button class="themeSwitcher">
+            <img src="../static/img/moon.png" alt="Theme Switcher" />
+          </button>
+        </div>
+      </div>
+    </header>
+    <hr />
+
+    <!-- <dialog id="registrationModal" class="modal"> -->
+    <!-- <div class="modalContent"> -->
+    <!-- <button class="closeBtn">&times;</button> -->
+    <form method="POST" action="/">
+      <div class="formInfo">
+        <div class="container">
+          <div class="formGroup">
+            <fieldset>
+              <legend>Логин <span>*</span></legend>
+              <input
+                type="text"
+                id="login"
+                name="login"
+                required
+                placeholder="К примеру: ivan"
+              />
+            </fieldset>
+          </div>
+
+          <div class="formGroup passwordField">
+            <fieldset>
+              <legend>Пароль <span>*</span></legend>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                placeholder="К примеру: 123"
+              />
+              <span class="togglePassword"
+                ><img
+                  src="{{ url_for('static', filename='img/eye.png') }}"
+                  alt="Toggle"
+              /></span>
+            </fieldset>
+          </div>
+          <div class="passwordRequirements">
+            <p>Требования к паролю:</p>
+            <ul>
+              <li id="reqLength">
+                <span class="requirementIcon">✖</span> Минимум 8 символов
+              </li>
+              <li id="reqDigit">
+                <span class="requirementIcon">✖</span> Содержит цифры
+              </li>
+              <li id="reqLetter">
+                <span class="requirementIcon">✖</span> Содержит буквы
+              </li>
+              <li id="reqSpecial">
+                <span class="requirementIcon">✖</span> Содержит спецсимволы
+              </li>
+              <li id="reqMatch">
+                <span class="requirementIcon">✖</span> Пароли совпадают
+              </li>
+            </ul>
+          </div>
+
+          <div class="formGroup passwordField">
+            <fieldset>
+              <legend>Подтвердите пароль <span>*</span></legend>
+              <input
+                type="password"
+                id="confirm_password"
+                name="confirm_password"
+                required
+                placeholder="Повторите пароль"
+              />
+              <span class="togglePassword"
+                ><img
+                  src="{{ url_for('static', filename='img/eye.png') }}"
+                  alt="Toggle"
+              /></span>
+            </fieldset>
+          </div>
+
+          <div class="formGroup">
+            <fieldset>
+              <legend>Ф.И.О. <span>*</span></legend>
+              <input
+                type="text"
+                id="full_name"
+                name="full_name"
+                required
+                placeholder="К примеру: Иванович Иван Иванов"
+              />
+            </fieldset>
+          </div>
+
+          <div class="formGroup">
+            <fieldset>
+              <legend>E-Mail <span>*</span></legend>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="К примеру: ivan@gmail.com"
+              />
+            </fieldset>
+          </div>
+
+          <div class="formGroup">
+            <fieldset>
+              <legend>Телефон <span>*</span></legend>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                required
+                placeholder="К примеру: +7 (***) ***-**-**"
+              />
+            </fieldset>
+          </div>
+
+          <div class="formGroup">
+            <fieldset>
+              <legend>О себе <span>*</span></legend>
+              <textarea
+                id="about"
+                name="about"
+                required
+                placeholder="К примеру: Я занимаюсь спортом"
+              ></textarea>
+            </fieldset>
+          </div>
+
+          <div class="formGroup">
+            <fieldset>
+              <legend>Аватар *</legend>
+              <div id="dropZone" class="dropZone">
+                <p>Перетащите изображение сюда или нажмите для выбора</p>
+                <input
+                  type="file"
+                  id="avatar"
+                  accept="image/*"
+                  style="display: none"
+                  required
+                />
+              </div>
+              <div class="avatarPreviewContainer">
+                <img
+                  id="avatarPreview"
+                  class="avatarPreview"
+                  style="display: none"
+                  alt="Avatar Preview"
+                />
+              </div>
+            </fieldset>
+          </div>
+
+          <button type="submit" id="submitButton">Отправить</button>
+          <div class="formGroup">
+            <p>Поля обязательные <span>*</span> для заполнения</p>
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- </div> -->
+    <!-- </dialog> -->
+    <section class="info">
+      <div class="containerPage">
+        <div class="infoList">
+          <h3>Информация</h3>
+          {% if users %} {% for user in users %}
+          <div class="userСard">
+            <p><strong>Логин:</strong> {{ user[1] }}</p>
+            <p><strong>Ф.И.О.:</strong> {{ user[2] }}</p>
+            <p><strong>Email:</strong> {{ user[3] }}</p>
+            <p><strong>Телефон:</strong> {{ user[4] }}</p>
+            <p><strong>О себе:</strong> {{ user[5] }}</p>
+            <p><strong>Аватар:</strong></p>
+            <img src="{{ user[6] }}" alt="User Avatar" />
+          </div>
+          {% endfor %} {% else %}
+          <p>Информации пока нет</p>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  </body>
+</html>
